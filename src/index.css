@@ -6,3 +6,30 @@ body,
   margin: 0;
   overflow: hidden;
 }
+
+body {
+  background: linear-gradient(
+    180deg,
+    #042755 00%,   /* start at top */
+    #ffffff 40%,  /* keep dark color till 40% height */
+    #ffffff 40%,  /* start white at 40% */
+    #ffffff 100%  /* all the way to bottom */
+  );
+    font-family: "Inter", sans-serif;
+}
+
+
+.hero-text {
+  position: fixed;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+
+.logo-svg {
+ width: min(90vw, 520px);
+  height: auto;
+  display: block;
+}
