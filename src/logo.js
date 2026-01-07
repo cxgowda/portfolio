@@ -8,8 +8,8 @@ const Logo = () => (
     <defs>
       <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
 
-        <stop offset="0%" stopColor="#97a7b9ff" />
-        <stop offset="100%" stopColor="#529294ff" />
+        <stop offset="0%" stopColor="#77afbdff" />
+        <stop offset="100%" stopColor="#71a2a3ff" />
       </linearGradient>
     </defs>
 

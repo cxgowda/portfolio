@@ -4,19 +4,22 @@ body,
   width: 100%;
   height: 100%;
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+overflow-y: auto;
+
 }
 
 body {
   background: linear-gradient(
     180deg,
-    #042755 00%,   /* start at top */
+    #105864 00%,   /* start at top */
     #ffffff 40%,  /* keep dark color till 40% height */
     #ffffff 40%,  /* start white at 40% */
     #ffffff 100%  /* all the way to bottom */
   );
     font-family: "Inter", sans-serif;
 }
+
 
 
 .hero-text {
@@ -26,7 +29,21 @@ body {
   transform: translateX(-50%);
   z-index: 10;
 }
-
+.footer {
+  position: relative;
+  padding: 24px 0;
+  text-align: center;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: rgb(71, 160, 167);
+  background: linear-gradient(
+    180deg,
+    #ffffff00 00%,   /* start at top */
+    #ffffff 40%,  /* keep dark color till 40% height */
+    #ffffff 40%,  /* start white at 40% */
+    hsl(189, 72%, 65%) 100%  /* all the way to bottom */
+  );
+}
 
 .logo-svg {
  width: min(90vw, 520px);

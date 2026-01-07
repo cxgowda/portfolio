@@ -2,6 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import Scene from "./scene";
 import Logo from "./logo";
+import Footer from "./footer";
 
 export default function App() {
   return (
@@ -17,7 +18,11 @@ export default function App() {
       <ScrollControls pages={3} damping={0.25}>
         <Scene />
       </ScrollControls>
+      
     </Canvas>
+    
+    <Footer />
+     
      </>
   );
 }

@@ -30,6 +30,22 @@
   color: #61dafb;
 }
 
+.footer {
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: rgba(32, 10, 238, 0.65);
+
+  background: transparent;
+  margin-top: 100vh;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
