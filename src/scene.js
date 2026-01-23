@@ -1,34 +1,54 @@
 import { useFrame } from "@react-three/fiber";
-import { useScroll } from "@react-three/drei";
-import { useRef } from "react";
+import { useScroll, useGLTF, useAnimations } from "@react-three/drei";
+import { useRef, useEffect } from "react";
+import InfoBox from "./InfoBox";
+
 
 export default function Scene() {
-  const mesh = useRef();
+  const group = useRef();
   const scroll = useScroll();
 
+  const { scene, animations } = useGLTF("/models/model2.glb");
+  const { actions } = useAnimations(animations, group);
+
+  // ▶️ Play animation on load
+  useEffect(() => {
+    if (actions) {
+      const firstAction = Object.values(actions)[0];
+      firstAction?.play();
+    }
+  }, [actions]);
+
   useFrame(() => {
-    const scrollOffset = scroll.offset; // 0 → 1
+    const offset = scroll.offset;
 
-    // Move object vertically
-    mesh.current.position.y = -scrollOffset * 4;
+    if (!group.current) return;
 
-    // Rotate as you scroll
-    mesh.current.rotation.y = scrollOffset * Math.PI * 2;
+    // Scroll movement
+    group.current.position.y = -offset * 4;
 
-    // Scale effect
-    const scale = 1 + scrollOffset;
-    mesh.current.scale.set(scale, scale, scale);
+    // Scroll rotation
+    group.current.rotation.y = offset * Math.PI * 2;
+
+    // Scroll scale
+    const s = 1 + offset;
+    group.current.scale.set(s, s, s);
+
+
   });
 
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 5, 5]} />
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[5, 5, 5]} intensity={2} />
 
-      <mesh ref={mesh}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color={"#00aaff"} />
-      </mesh>
+      <group ref={group}>
+        <primitive object={scene} />
+      </group>
+      <InfoBox />
     </>
   );
 }
+
+useGLTF.preload("/models/model2.glb");
+
