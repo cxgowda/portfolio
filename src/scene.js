@@ -116,7 +116,7 @@ export default function Scene() {
         material-transparent={true}
       >
 
-      {"      I don’t have time to work on the site right now. \n                        Please check back later.\n I made this site so that no one would steal my domain\n                                         Thanks"}
+      {"      I don’t have time to work on the site right now. \n                        Please check back later.\n I made this site because i already paid for my domain\n                                         Thanks"}
       </Text>
 
 
