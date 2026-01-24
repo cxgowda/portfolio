@@ -2,6 +2,8 @@ import { useFrame } from "@react-three/fiber";
 import { useScroll, useGLTF, useAnimations, Text } from "@react-three/drei";
 import { useRef, useEffect } from "react";
 import InfoBox from "./InfoBox";
+import VideoCircle from "./VideoCircle";
+
 
 export default function Scene() {
   const group = useRef();
@@ -121,6 +123,11 @@ export default function Scene() {
 
 
       <InfoBox />
+      <VideoCircle
+  position={[0.9, 1.0, 1.2]}
+  radius={0.22}
+/>
+
     </>
   );
 }
