@@ -23,8 +23,8 @@ export default function Scene() {
       
       <RoundedBox
         ref={boxRef}
-        args={[1, 1, 0.1]}      // width, height, depth (base size)
-        radius={0.08}           // 👈 rounded corners
+        args={[1, 1.2, 0.1]}      // width, height, depth (base size)
+        radius={0.06}           // 👈 rounded corners
         smoothness={4}
       >
         {/* Gradient material */}
