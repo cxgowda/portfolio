@@ -16,7 +16,7 @@ export default function App() {
 
     <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
       {/* 3 pages = deeper scroll */}
-      <ScrollControls pages={2} damping={0.25}>
+      <ScrollControls pages={1} damping={0.25}>
         <Scene />
       </ScrollControls>
       

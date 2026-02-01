@@ -14,7 +14,7 @@ export default function Scene() {
   const textRef3 = useRef();
 
 
-  const { scene, animations } = useGLTF("/models/model2.glb");
+  const { scene, animations } = useGLTF("/models/sapcesuit1.glb");
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
@@ -23,6 +23,7 @@ export default function Scene() {
       firstAction?.play();
     }
 
+     
     // Set initial opacity for text to 0
     if (textRef1.current?.material) {
       textRef1.current.material.transparent = true;
@@ -60,7 +61,7 @@ export default function Scene() {
     }
 
     if (textRef2.current?.material) {
-      const fade2 = Math.min(Math.max(offset - 0.30, 0) * 2, 1); // start at 30% scroll
+      const fade2 = Math.min(Math.max(offset - 0.60, 0) * 3, 1); // start at 30% scroll
       textRef2.current.material.opacity = fade2;
     }
 
@@ -82,9 +83,9 @@ export default function Scene() {
       {/* First line */}
       <Text
         ref={textRef1}
-        position={[-0.6,1.6, 0]}
+        position={[-0.6,1.5, 0]}
         fontSize={0.1}         
-        color="#015358"
+        color="#6eacafff"
         anchorX="center"
         anchorY="middle"
         material-transparent={true} // ensures transparency works
@@ -97,39 +98,25 @@ export default function Scene() {
       {/* Second line */}
      <Text
         ref={textRef2}
-        position={[-0.0, 1.1, 0]}
+        position={[-0.72, 1.1, 0]}
         fontSize={0.1}         
-        color="#015358"
+        color="#aaced0ff"
         anchorX="center"
         anchorY="middle"
         material-transparent={true}
       >
-        {"🎓Manipal Institute of Technology\n     Computer Science and Information Security"}
+        {"👷‍♂️Devian\n     Founder, CTO"}
 
       </Text>
 
-       <Text
-        ref={textRef3}
-        position={[0, 0.4, 0]}
-        fontSize={0.1}         
-        color="#015358"
-        anchorX="center"
-        anchorY="middle"
-        material-transparent={true}
-      >
 
-      {"      I don’t have time to work on the site right now. \n                        Please check back later.\n I made this site because i already paid for my domain\n                                         Thanks"}
-      </Text>
 
 
       <InfoBox />
-      <VideoCircle
-  position={[0.9, 1.0, 1.2]}
-  radius={0.22}
-/>
+
 
     </>
   );
 }
 
-useGLTF.preload("/models/model2.glb");
+useGLTF.preload("/models/sapcesuit1.glb");

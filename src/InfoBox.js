@@ -8,11 +8,11 @@ export default function Scene() {
 
   useFrame(() => {
     const offset = scroll.offset; // 0 → 1
-    const height = offset * 2;
+    const height = offset * 1;
 
     if (boxRef.current) {
       boxRef.current.scale.set(2.7, height, 1);
-      boxRef.current.position.y = 1.8 - height / 2;
+      boxRef.current.position.y = 1.7 - height / 2;
       boxRef.current.visible = height > 0.01;
     }
   });
@@ -24,17 +24,17 @@ export default function Scene() {
       <RoundedBox
         ref={boxRef}
         args={[1, 1.2, 0.1]}      // width, height, depth (base size)
-        radius={0.06}           // 👈 rounded corners
+        radius={0.07}           // 👈 rounded corners
         smoothness={4}
       >
         {/* Gradient material */}
         <meshStandardMaterial
           transparent
-          opacity={0.28}
+          opacity={0.1}
           roughness={0.15}
           metalness={0.6}
           depthWrite={false}
-          color="#3a67af"      // placeholder color for gradient
+          color="#a7b7b9ff"      // placeholder color for gradient
         />
       </RoundedBox>
     </>

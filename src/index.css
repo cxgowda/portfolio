@@ -13,9 +13,9 @@ body {
   background: linear-gradient(
     180deg,
     #105864 00%,   /* start at top */
-    #ffffff 40%,  /* keep dark color till 40% height */
-    #ffffff 40%,  /* start white at 40% */
-    #ffffff 100%  /* all the way to bottom */
+    #243c42 40%,  /* keep dark color till 40% height */
+    #243c42 40%,  /* start white at 40% */
+    #000000 100%  /* all the way to bottom */
   );
     font-family: "Inter", sans-serif;
 }
@@ -35,13 +35,13 @@ body {
   text-align: center;
   font-size: 0.85rem;
   letter-spacing: 0.08em;
-  color: rgb(71, 160, 167);
+  color: rgb(186, 202, 203);
   background: linear-gradient(
     180deg,
-    #ffffff00 00%,   /* start at top */
-    #ffffff 40%,  /* keep dark color till 40% height */
-    #ffffff 40%,  /* start white at 40% */
-    hsl(189, 72%, 65%) 100%  /* all the way to bottom */
+    #5e686a00 00%,   /* start at top */
+    #215c69 40%,  /* keep dark color till 40% height */
+    #2c6469 40%,  /* start white at 40% */
+    hsl(0, 0%, 0%) 100%  /* all the way to bottom */
   );
 }
 
