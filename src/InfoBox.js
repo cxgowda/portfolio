@@ -12,7 +12,7 @@ export default function InfoBox() {
     const height = offset * 2;
 
     if (boxRef.current) {
-      boxRef.current.scale.set(4, height, 0.12);
+      boxRef.current.scale.set(3, height, 0.12);
       boxRef.current.position.y = 1.8 - height / 2;
       boxRef.current.visible = height > 0.02;
     }

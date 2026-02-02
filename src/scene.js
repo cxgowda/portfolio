@@ -84,7 +84,7 @@ export default function Scene() {
         ref={textRef1}
         position={[-0.6,1.5, 0]}
         fontSize={0.1}         
-        color="#6eacafff"
+        color="rgb(130, 176, 179)"
         anchorX="center"
         anchorY="middle"
         material-transparent={true} // ensures transparency works
@@ -99,7 +99,7 @@ export default function Scene() {
         ref={textRef2}
         position={[-0.72, 1.1, 0]}
         fontSize={0.1}         
-        color="#aaced0ff"
+        color="rgb(130, 176, 179)"
         anchorX="center"
         anchorY="middle"
         material-transparent={true}
@@ -107,6 +107,8 @@ export default function Scene() {
         {"👷‍♂️Devian\n     Founder, CTO"}
 
       </Text>
+
+      
 
 
 
