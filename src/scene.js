@@ -60,7 +60,7 @@ export default function Scene() {
     }
 
     if (textRef2.current?.material) {
-      const fade2 = Math.min(Math.max(offset - 0.60, 0) * 4, 1); // start at 30% scroll
+      const fade2 = Math.min(Math.max(offset - 0.340, 0) * 2, 1); // start at 30% scroll
       textRef2.current.material.opacity = fade2;
     }
 
@@ -105,6 +105,20 @@ export default function Scene() {
         material-transparent={true}
       >
         {"👷‍♂️Devian\n     Founder, CTO"}
+
+      </Text>
+
+        {/* Second line */}
+     <Text
+        ref={textRef3}
+        position={[0.05, 0.7, 0]}
+        fontSize={0.1}         
+        color="rgb(130, 176, 179)"
+        anchorX="center"
+        anchorY="middle"
+        material-transparent={true}
+      >
+        {"👽Currently not working on this, come back later"}
 
       </Text>
 

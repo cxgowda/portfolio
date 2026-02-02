@@ -50,3 +50,90 @@ body {
   height: auto;
   display: block;
 }
+
+/* ===================== */
+/*  SCROLL CHEVRON UI   */
+/* ===================== */
+
+.scroll-arrow {
+  position: fixed;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  pointer-events: none;
+  z-index: 10;
+
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Fade state */
+.scroll-arrow.hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px);
+}
+
+/* One Chevron */
+.chevron {
+  position: relative;
+  width: 28px;
+  height: 14px;
+  opacity: 0.2;
+  animation: glowPulse 1.6s infinite;
+}
+
+/* Left stroke */
+.chevron span:first-child {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 14px;
+  height: 1px;
+  background: rgba(160,220,255,1);
+  transform: rotate(45deg);
+  box-shadow:
+    0 0 6px rgba(120,200,255,0.8),
+    0 0 12px rgba(120,200,255,0.8);
+}
+
+/* Right stroke */
+.chevron span:last-child {
+  position: absolute;
+  right: 0;
+  top: 6px;
+  width: 14px;
+  height: 1px;
+  background: rgba(160,220,255,1);
+  transform: rotate(-45deg);
+  box-shadow:
+    0 0 6px rgba(120,200,255,0.8),
+    0 0 12px rgba(120,200,255,0.8);
+}
+
+/* Stagger */
+.chevron:nth-child(1) { animation-delay: 0s; }
+.chevron:nth-child(2) { animation-delay: 0.2s; }
+.chevron:nth-child(3) { animation-delay: 0.4s; }
+.chevron:nth-child(4) { animation-delay: 0.6s; }
+
+/* Glow pulse */
+@keyframes glowPulse {
+  0% {
+    opacity: 0.15;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(6px);
+  }
+  80% {
+    opacity: 0.15;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0.15;
+  }
+}
