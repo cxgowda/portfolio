@@ -1,26 +1,17 @@
 import { Canvas } from "@react-three/fiber";
-import { ScrollControls, useProgress } from "@react-three/drei";
+import { ScrollControls } from "@react-three/drei";
 import Scene from "./scene";
 import Logo from "./logo";
 import Footer from "./footer";
 import Loader from "./loader";
 import { Suspense, useEffect, useState } from "react";
 
-/* -------------------------------- */
-/* Helper Component for Arrow Logic */
-/* -------------------------------- */
-function ScrollArrow() {
-  const { progress } = useProgress();     // loading %
-  const [showArrow, setShowArrow] = useState(false);
+export default function App() {
 
-  // Show arrow only after loading finished
-  useEffect(() => {
-    if (progress === 100) {
-      setShowArrow(true);
-    }
-  }, [progress]);
+  // Arrow visible initially
+  const [showArrow, setShowArrow] = useState(true);
 
-  // Hide arrow on first scroll
+  // Hide arrow on first scroll interaction
   useEffect(() => {
     const hideArrow = () => setShowArrow(false);
 
@@ -34,30 +25,20 @@ function ScrollArrow() {
   }, []);
 
   return (
-    <div className={`scroll-arrow ${!showArrow ? "hide" : ""}`}>
-      <div className="chevron"><span></span><span></span></div>
-      <div className="chevron"><span></span><span></span></div>
-      <div className="chevron"><span></span><span></span></div>
-    </div>
-  );
-}
-
-/* ---------------- */
-/* Main App */
-/* ---------------- */
-
-export default function App() {
-  return (
     <>
       {/* Logo */}
       <div className="hero-text">
         <Logo />
       </div>
 
-      {/* Scroll Arrow */}
-      <ScrollArrow />
+      {/* Scroll Hint */}
+      <div className={`scroll-arrow ${!showArrow ? "hide" : ""}`}>
+        <div className="chevron"><span></span><span></span></div>
+        <div className="chevron"><span></span><span></span></div>
+        <div className="chevron"><span></span><span></span></div>
+      </div>
 
-      {/* Canvas */}
+      {/* 3D Scene */}
       <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
         <Suspense fallback={<Loader />}>
           <ScrollControls pages={1} damping={0.25}>
@@ -66,7 +47,6 @@ export default function App() {
         </Suspense>
       </Canvas>
 
-      <Footer />
     </>
   );
 }
