@@ -55,12 +55,12 @@ export default function Scene() {
     // Text fade-in independently
     // --------------------------
     if (textRef1.current?.material) {
-      const fade1 = Math.min(Math.max(offset - 0.08, 0) * 2, 1); // start at 10% scroll
+      const fade1 = Math.min(Math.max(offset - 0.18, 0) * 2, 1); // start at 10% scroll
       textRef1.current.material.opacity = fade1;
     }
 
     if (textRef2.current?.material) {
-      const fade2 = Math.min(Math.max(offset - 0.60, 0) * 3, 1); // start at 30% scroll
+      const fade2 = Math.min(Math.max(offset - 0.60, 0) * 4, 1); // start at 30% scroll
       textRef2.current.material.opacity = fade2;
     }
 

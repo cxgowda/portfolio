@@ -2,40 +2,58 @@ import { RoundedBox, useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 
-export default function Scene() {
+export default function InfoBox() {
+
   const boxRef = useRef();
   const scroll = useScroll();
 
   useFrame(() => {
-    const offset = scroll.offset; // 0 → 1
-    const height = offset * 1;
+    const offset = scroll.offset;   // 0 → 1
+    const height = offset * 2;
 
     if (boxRef.current) {
-      boxRef.current.scale.set(2.7, height, 1);
-      boxRef.current.position.y = 1.7 - height / 2;
-      boxRef.current.visible = height > 0.01;
+      boxRef.current.scale.set(4, height, 0.12);
+      boxRef.current.position.y = 1.8 - height / 2;
+      boxRef.current.visible = height > 0.02;
     }
   });
 
   return (
     <>
-      <ambientLight intensity={0.5} />
-      
+      {/* Light for shine */}
+      <ambientLight intensity={0.35} />
+      <directionalLight position={[5, 5, 5]} intensity={3} />
+      <directionalLight position={[-5, -5, 5]} intensity={1.5} />
+
       <RoundedBox
         ref={boxRef}
-        args={[1, 1.2, 0.1]}      // width, height, depth (base size)
-        radius={0.07}           // 👈 rounded corners
-        smoothness={4}
+        args={[1, 1, 0.12]}
+        radius={0.10}
+        smoothness={10}
       >
-        {/* Gradient material */}
-        <meshStandardMaterial
+
+        {/* DARK GLASS MATERIAL */}
+        <meshPhysicalMaterial
           transparent
-          opacity={0.1}
-          roughness={0.15}
-          metalness={0.6}
+          transmission={0.9}
+          thickness={0.4}
+
+          roughness={0.18}
+          metalness={0}
+
+          ior={1.45}
+          reflectivity={1}
+
+          clearcoat={1}
+          clearcoatRoughness={0.05}
+
+          envMapIntensity={2}
+
+          color="#393e45"
+          opacity={0.55}
           depthWrite={false}
-          color="#a7b7b9ff"      // placeholder color for gradient
         />
+
       </RoundedBox>
     </>
   );
