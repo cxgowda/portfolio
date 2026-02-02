@@ -2,7 +2,6 @@ import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import Scene from "./scene";
 import Logo from "./logo";
-import Footer from "./footer";
 import Loader from "./loader";
 import { Suspense, useEffect, useState } from "react";
 
