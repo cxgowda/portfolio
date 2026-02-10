@@ -40,7 +40,7 @@ export default function App() {
       {/* 3D Scene */}
       <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
         <Suspense fallback={<Loader />}>
-          <ScrollControls pages={1} damping={0.25}>
+          <ScrollControls pages={1} damping={0.0}>
             <Scene />
           </ScrollControls>
         </Suspense>
