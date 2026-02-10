@@ -46,14 +46,14 @@ export default function Scene() {
 
     // Moon animation
   if (moonRef.current) {
-  const minScale = 0.3;
+  const minScale = 0.8;
   const maxScale = 1.2;
 
   const scale = minScale + scroll.offset * (maxScale - minScale);
   moonRef.current.scale.set(scale, scale, scale);
 
-  moonRef.current.rotation.y += 0.008;
-  moonRef.current.rotation.z += 0.008;
+  moonRef.current.rotation.y += 0.005;
+  moonRef.current.rotation.z += 0.005;
   moonRef.current.position.y = 1 - scroll.offset * 2.5;
 }
 
