@@ -1,7 +1,10 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { RoundedBox, Text as DreiText } from "@react-three/drei";
+import { RoundedBox, Text as DreiText, useGLTF } from "@react-three/drei";
+
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+
+
 
 /* -------------------- STAR TEXTURE -------------------- */
 function createGlowTexture() {
@@ -31,6 +34,7 @@ function createGlowTexture() {
 
   return new THREE.CanvasTexture(canvas);
 }
+
 
 /* -------------------- STARS -------------------- */
 function Stars() {
@@ -149,11 +153,11 @@ function Description() {
       anchorY="top"
       textAlign="left"
     >
-      {`Cephi is a small, experimental Proof-of-Stake blockchain project built independently by Chiranth Gowda as a passion project because he was bored on sunday. It runs on a Byzantine Fault Tolerant (BFT) consensus mechanism and was created purely out of curiosity to explore how decentralized networks and validators actually works.
+      {`Cephi is a small, experimental Proof-of-Stake blockchain project built independently by Chiranth Gowda as a passion project. It runs on a Byzantine Fault Tolerant (BFT) consensus mechanism and was created purely out of curiosity to explore how decentralized networks and validators actually works.
       \nCephi is not backed by a large team or company. `}
       <meshStandardMaterial
-        color="#182233"
-        emissive="#62686e"
+        color="#374152"
+        emissive="#767c83"
         emissiveIntensity={1.2}
         toneMapped={false}
       />
@@ -162,11 +166,41 @@ function Description() {
 }
 
 
-/* -------------------- INFO BOX (GLASS ONLY) -------------------- */
-function InfoBox() {
+/* -------------------- Metrics -------------------- */
+function GeneralMetrics() {
   const { viewport } = useThree();
 
-  const boxWidth = Math.min(viewport.width * 1.2, 9);
+  const fontSize = Math.max(0.15, Math.min(viewport.width * 0.1, 0.15));
+
+  return (
+    <DreiText
+      position={[-viewport.width / 2 + 0.001, viewport.height / 2.6 - 1.8, -1]}
+      fontSize={fontSize}
+      maxWidth={viewport.width * 1.0}
+      lineHeight={1.4}
+      anchorX="left"
+      anchorY="top"
+      textAlign="left"
+    >
+      {/* your text */}
+      {`Total Nodes: 2\nTest Tokens Staked: 500+ \nNetworks Supported: 1\nTotal Volume Catered: $40`}
+      <meshStandardMaterial
+        color="#374152"
+        emissive="#767c83"
+        emissiveIntensity={1.2}
+        toneMapped={false}
+      />
+    </DreiText>
+  );
+}
+
+
+
+/* -------------------- INFO BOX (GLASS ONLY) -------------------- */
+function InfoBox({ position = [0, 0.05, -1.5], children }) {
+  const { viewport } = useThree();
+
+  const boxWidth = Math.min(viewport.width * 1.3, 9);
   const boxHeight = boxWidth * 0.6;
 
   return (
@@ -177,7 +211,7 @@ function InfoBox() {
       <directionalLight position={[-5, -5, 5]} intensity={1.5} />
 
       <RoundedBox
-        position={[0, 0, -1.5]}   // stays center
+        position={position}
         args={[boxWidth, boxHeight, 0.15]}
         radius={0.12}
         smoothness={10}
@@ -198,9 +232,11 @@ function InfoBox() {
           depthWrite={false}
         />
       </RoundedBox>
+
     </>
   );
 }
+
 
 
 /* -------------------- MAIN CEPHI PAGE -------------------- */
@@ -211,9 +247,12 @@ export default function Cephi() {
       
     <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
   <Stars />
+   
   <Heading />
   <Description />
-  <InfoBox />
+  <GeneralMetrics />
+    <InfoBox position={[0, -1.5, -2]} />
+
 </Canvas>
 
       
