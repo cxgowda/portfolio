@@ -1,16 +1,15 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import Scene from "./scene";
 import Logo from "./logo";
 import Loader from "./loader";
+import Cephi from "./Cephi";
 import { Suspense, useEffect, useState } from "react";
 
-export default function App() {
-
-  // Arrow visible initially
+function MainPage() {
   const [showArrow, setShowArrow] = useState(true);
 
-  // Hide arrow on first scroll interaction
   useEffect(() => {
     const hideArrow = () => setShowArrow(false);
 
@@ -25,19 +24,16 @@ export default function App() {
 
   return (
     <>
-      {/* Logo */}
       <div className="hero-text">
         <Logo />
       </div>
 
-      {/* Scroll Hint */}
       <div className={`scroll-arrow ${!showArrow ? "hide" : ""}`}>
         <div className="chevron"><span></span><span></span></div>
         <div className="chevron"><span></span><span></span></div>
         <div className="chevron"><span></span><span></span></div>
       </div>
 
-      {/* 3D Scene */}
       <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
         <Suspense fallback={<Loader />}>
           <ScrollControls pages={1} damping={0.0}>
@@ -45,7 +41,17 @@ export default function App() {
           </ScrollControls>
         </Suspense>
       </Canvas>
-
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/cephi" element={<Cephi />} />
+      </Routes>
+    </Router>
   );
 }

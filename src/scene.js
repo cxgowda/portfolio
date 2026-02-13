@@ -1,12 +1,15 @@
 import { useFrame } from "@react-three/fiber";
-import { useScroll, useGLTF, useAnimations, Text } from "@react-three/drei";
+import { useScroll, useGLTF, useAnimations, Text, Html } from "@react-three/drei";
 import { useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import InfoBox from "./InfoBox";
+
 
 export default function Scene() {
   const group = useRef();
   const moonRef = useRef();
   const scroll = useScroll();
+  const navigate = useNavigate();
 
   const textRef1 = useRef();
   const textRef2 = useRef();
@@ -133,6 +136,23 @@ export default function Scene() {
       >
         {"👽 Currently not working on this,\ncome back later"}
       </Text>
+
+      {/* Navigation Button */}
+           {/* <Html position={[0, -1.5, 0]}>
+              <button
+                onClick={() => navigate("/cephi")}
+                style={{
+                  padding: "12px 24px",
+                  fontSize: "16px",
+                  background: "rgb(130, 176, 179)",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                }}
+              >
+                Enter Cephi
+              </button>
+            </Html> */}
 
       <InfoBox />
     </>
