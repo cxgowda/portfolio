@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="168">
+  <rect x="0" y="0" width="20" height="20" fill="#36477c" rx="4" ry="4" />
+<rect x="0" y="24" width="20" height="20" fill="#636480" rx="4" ry="4" />
+<rect x="0" y="48" width="20" height="20" fill="#aaadb6" rx="4" ry="4" />
+<rect x="0" y="72" width="20" height="20" fill="#36477c" rx="4" ry="4" />
+<rect x="0" y="96" width="20" height="20" fill="#36477c" rx="4" ry="4" />
+<rect x="0" y="120" width="20" height="20" fill="#aaadb6" rx="4" ry="4" />
+<rect x="0" y="144" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="24" y="0" width="20" height="20" fill="#aaadb6" rx="4" ry="4" />
+<rect x="24" y="24" width="20" height="20" fill="#aaadb6" rx="4" ry="4" />
+<rect x="24" y="48" width="20" height="20" fill="#636480" rx="4" ry="4" />
+<rect x="24" y="72" width="20" height="20" fill="#36477c" rx="4" ry="4" />
+<rect x="24" y="96" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="24" y="120" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="24" y="144" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="48" y="0" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="48" y="24" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="48" y="48" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="48" y="72" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="48" y="96" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="48" y="120" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="48" y="144" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="72" y="0" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="72" y="24" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="72" y="48" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="72" y="72" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="72" y="96" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="72" y="120" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="72" y="144" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="96" y="0" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="96" y="24" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="96" y="48" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="96" y="72" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="96" y="96" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="96" y="120" width="20" height="20" fill="#000000" rx="4" ry="4" />
+<rect x="96" y="144" width="20" height="20" fill="#000000" rx="4" ry="4" />
+
+</svg>
