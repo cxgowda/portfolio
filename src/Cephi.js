@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { RoundedBox, Text as DreiText, useGLTF } from "@react-three/drei";
+import { RoundedBox, Text as DreiText } from "@react-three/drei";
 
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
