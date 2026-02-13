@@ -9,7 +9,7 @@ export default function Scene() {
   const group = useRef();
   const moonRef = useRef();
   const scroll = useScroll();
-  {/*const navigate = useNavigate();  -- Use this like when button is enabled*/}
+  //const navigate = useNavigate();  -- Use this like when button is enabled
 
   const textRef1 = useRef();
   const textRef2 = useRef();
