@@ -9,7 +9,7 @@ import { Suspense, useEffect, useState } from "react";
 
 function MainPage() {
   const [showArrow, setShowArrow] = useState(true);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   useEffect(() => {
     const hideArrow = () => setShowArrow(false);
