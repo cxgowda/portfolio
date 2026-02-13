@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber";
-import { useScroll, useGLTF, useAnimations, Text, Html } from "@react-three/drei";
+import { useScroll, useGLTF, useAnimations, Text } from "@react-three/drei";
 import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InfoBox from "./InfoBox";
@@ -137,7 +137,14 @@ export default function Scene() {
         {"👽 Currently not working on this,\ncome back later"}
       </Text>
 
-      {/* Navigation Button */}
+      {/* Navigation Button *
+      
+      
+      import { useScroll, useGLTF, useAnimations, Text, Html } from "@react-three/drei";
+
+      Replace this line such that it contains html when button is enabled or the build will fail.
+      
+      /}
            {/* <Html position={[0, -1.5, 0]}>
               <button
                 onClick={() => navigate("/cephi")}
