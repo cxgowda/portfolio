@@ -1,7 +1,7 @@
 import { useFrame } from "@react-three/fiber";
 import { useScroll, useGLTF, useAnimations, Text } from "@react-three/drei";
 import { useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import InfoBox from "./InfoBox";
 
 
