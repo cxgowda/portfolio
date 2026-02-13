@@ -9,7 +9,7 @@ import { Suspense, useEffect, useState } from "react";
 
 function MainPage() {
   const [showArrow, setShowArrow] = useState(true);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const hideArrow = () => setShowArrow(false);
@@ -44,11 +44,11 @@ function MainPage() {
       </Canvas> 
 
       {/* Fixed Cephi SVG Button with sparks */}
-      {/*
+      
       <div
         style={{
           position: "fixed",
-          top: "100px",
+          top: "35px",
           left: "10px",
           zIndex: 1000,
           display: "flex",
@@ -93,7 +93,7 @@ function MainPage() {
             />
           ))}
         </button>
-      </div> */}
+      </div> 
 
       <style>
         {`

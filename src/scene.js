@@ -137,7 +137,7 @@ useFrame(() => {
         {"👷‍♂️ Devian\nFounder, CTO"}
       </Text>
       <Text ref={textRef3} position={[0.05, 0.7, 0]} fontSize={0.1} color="rgb(130, 176, 179)" anchorX="center" anchorY="middle" material-transparent>
-        {"👽 Currently not working on this,\ncome back later"}
+        {"👽 This site is currently being built,\nsome things might be broken"}
       </Text>
 
       <InfoBox />
