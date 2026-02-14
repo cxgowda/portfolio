@@ -157,10 +157,10 @@ export default function Scene() {
     if (loaderRef.current && loaderRef.current.material) {
       const page2Start = 1 / totalPages; // 0.25
       const page2End = 2 / totalPages; // 0.5
-      const page3Start = 2 / totalPages; // 0.5
-      const page3End = 3 / totalPages; // 0.75
+      //const page3Start = 2 / totalPages; // 0.5
+      //const page3End = 3 / totalPages; // 0.75
 
-        const fadeInStart = 1 / totalPages;     // page2 start
+        //const fadeInStart = 1 / totalPages;     // page2 start
   const fadeInEnd   = 2 / totalPages;     // page2 end
   const fadeOutStart = fadeInEnd;         // start fade out immediately after fade-in
   const fadeOutEnd   = fadeInEnd + 0.05;  // currently 0.05 → you can make it faster

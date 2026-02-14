@@ -3,7 +3,7 @@ import { RoundedBox, Text as DreiText } from "@react-three/drei";
 
 import { useMemo, useRef,  useEffect, useState  } from "react";
 import * as THREE from "three";
-import Graph from "./Graph";
+//import Graph from "./Graph";
 import { ScrollControls, Scroll, useScroll } from "@react-three/drei";
 
 
