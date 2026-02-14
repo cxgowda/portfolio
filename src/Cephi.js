@@ -79,7 +79,6 @@ function MetricsInfoBoxes({ position = [0, -1.2, -1], metrics = [] }) {
   const spacing = boxWidth * 0.17;
 
   const isMobile = viewport.width < 5;
-  const columns = isMobile ? 1 : metrics.length;
 
   return (
     <>
