@@ -5,7 +5,6 @@ import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
 
-
 /* -------------------- STAR TEXTURE -------------------- */
 function createGlowTexture() {
   const size = 128;
@@ -34,6 +33,118 @@ function createGlowTexture() {
 
   return new THREE.CanvasTexture(canvas);
 }
+
+
+/* -------------------- DESCRIPTION -------------------- */
+function Description() {
+  const { viewport } = useThree();
+
+  const fontSize = Math.max(
+    0.12,                          // minimum mobile size
+    Math.min(viewport.width * 0.05, 0.15) // max desktop size
+  );
+
+  return (
+    <DreiText
+      position={[
+        0,                        // center horizontally
+        viewport.height / 2 - 1,  // slightly below heading
+        -1
+      ]}
+      fontSize={fontSize}
+      maxWidth={viewport.width * 0.9} // prevent overflowing
+      lineHeight={1.4}
+      anchorX="center"   // center text horizontally
+      anchorY="top"      // align from top vertically
+      textAlign="center" // center multi-line text
+    >
+      {`Cephi is a small, experimental Proof-of-Stake blockchain project built independently as a passion project. It runs on a Byzantine Fault Tolerant (BFT) consensus mechanism and was created purely out of curiosity to explore how decentralized networks and validators actually works.
+      \nCephi is not backed by a large team or company.`}
+      <meshStandardMaterial
+        color="#374152"
+        emissive="#767c83"
+        emissiveIntensity={1.2}
+        toneMapped={false}
+      />
+    </DreiText>
+  );
+}
+
+/* -------------------- METRICS INFOBOXES (SHINY GLASS) -------------------- */
+function MetricsInfoBoxes({ position = [0, -1.2, -1], metrics = [] }) {
+  const { viewport } = useThree();
+
+  const boxWidth = Math.min(viewport.width * 0.50, 2.5);
+  const boxHeight = boxWidth * 0.4;
+  const spacing = boxWidth * 0.17;
+
+  const isMobile = viewport.width < 5;
+  const columns = isMobile ? 1 : metrics.length;
+
+  return (
+    <>
+      {metrics.map((metric, i) => {
+        let xPos = 0;
+        let yPos = 0;
+
+        if (isMobile) {
+          xPos = 0;
+          yPos = -i * (boxHeight + spacing);
+        } else {
+          xPos = (i - (metrics.length - 1) / 2) * (boxWidth + spacing);
+          yPos = 0;
+        }
+
+        return (
+          <group key={i} position={[xPos, position[1] + yPos, position[2]]}>
+            {/* Shiny Glass Panel */}
+            <RoundedBox
+              args={[boxWidth, boxHeight, 0.1]}
+              radius={0.10}
+              smoothness={5}
+            >
+              <meshPhysicalMaterial
+                transparent
+                transmission={1}           // full glass effect
+                thickness={0.5}
+                roughness={0.05}           // smooth → shiny
+                metalness={0.2}            // subtle reflection
+                ior={1.5}                  // index of refraction
+                reflectivity={1.0}         // mirror-like reflection
+                clearcoat={1}              // glossy layer
+                clearcoatRoughness={0.02}  // very smooth
+                color="#2a2b2c6e"
+                opacity={0.4}
+                depthWrite={false}
+                envMapIntensity={2}        // reflections from environment
+              />
+            </RoundedBox>
+
+            {/* Metric Text */}
+            <DreiText
+              position={[0, 0, 0.06]}
+              fontSize={Math.min(boxHeight * 0.20, 0.20)}
+              anchorX="center"
+              anchorY="middle"
+              textAlign="center"
+            >
+              {metric}
+              <meshStandardMaterial
+                color="#ffffff"
+                emissive="#7a7e85"        // subtle glow
+                emissiveIntensity={0.7}
+                toneMapped={false}
+              />
+            </DreiText>
+          </group>
+        );
+      })}
+    </>
+  );
+}
+
+
+
 
 
 /* -------------------- STARS -------------------- */
@@ -97,7 +208,7 @@ function Stars() {
   );
 }
 
-/* -------------------- HEADING -------------------- */
+
 function Heading() {
   const { viewport } = useThree();
 
@@ -108,14 +219,10 @@ function Heading() {
 
   return (
     <DreiText
-      position={[
-        -viewport.width / 2 + 0.001,
-        viewport.height / 2 - 0.001,
-        -1
-      ]}
+      position={[0, viewport.height / 2 - 0.2, -1]} // x=0 (center), y slightly down from top
       fontSize={fontSize}
-      anchorX="left"
-      anchorY="top"
+      anchorX="center"  // center horizontally
+      anchorY="top"     // stay at top vertically
       letterSpacing={0.1}
     >
       CEPHI
@@ -130,114 +237,6 @@ function Heading() {
 }
 
 
-/* -------------------- DESCRIPTION -------------------- */
-function Description() {
-  const { viewport } = useThree();
-
-  const fontSize = Math.max(
-    0.15,                          // minimum mobile size
-    Math.min(viewport.width * 0.1, 0.15) // max desktop size
-  );
-
-  return (
-    <DreiText
-      position={[
-        -viewport.width / 2 + 0.001,
-        viewport.height / 2 - 0.6,
-        -1
-      ]}
-      fontSize={fontSize}
-      maxWidth={viewport.width * 1.0}
-      lineHeight={1.4}
-      anchorX="left"
-      anchorY="top"
-      textAlign="left"
-    >
-      {`Cephi is a small, experimental Proof-of-Stake blockchain project built independently by Chiranth Gowda as a passion project. It runs on a Byzantine Fault Tolerant (BFT) consensus mechanism and was created purely out of curiosity to explore how decentralized networks and validators actually works.
-      \nCephi is not backed by a large team or company. `}
-      <meshStandardMaterial
-        color="#374152"
-        emissive="#767c83"
-        emissiveIntensity={1.2}
-        toneMapped={false}
-      />
-    </DreiText>
-  );
-}
-
-
-/* -------------------- Metrics -------------------- */
-function GeneralMetrics() {
-  const { viewport } = useThree();
-
-  const fontSize = Math.max(0.15, Math.min(viewport.width * 0.1, 0.15));
-
-  return (
-    <DreiText
-      position={[-viewport.width / 2 + 0.001, viewport.height / 2.6 - 1.8, -1]}
-      fontSize={fontSize}
-      maxWidth={viewport.width * 1.0}
-      lineHeight={1.4}
-      anchorX="left"
-      anchorY="top"
-      textAlign="left"
-    >
-      {/* your text */}
-      {`Total Nodes: 2\nTest Tokens Staked: 500+ \nNetworks Supported: 1\nTotal Volume Catered: $40`}
-      <meshStandardMaterial
-        color="#374152"
-        emissive="#767c83"
-        emissiveIntensity={1.2}
-        toneMapped={false}
-      />
-    </DreiText>
-  );
-}
-
-
-
-/* -------------------- INFO BOX (GLASS ONLY) -------------------- */
-function InfoBox({ position = [0, 0.05, -1.5], children }) {
-  const { viewport } = useThree();
-
-  const boxWidth = Math.min(viewport.width * 1.3, 9);
-  const boxHeight = boxWidth * 0.6;
-
-  return (
-    <>
-      {/* Lighting */}
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 5, 5]} intensity={2.5} />
-      <directionalLight position={[-5, -5, 5]} intensity={1.5} />
-
-      <RoundedBox
-        position={position}
-        args={[boxWidth, boxHeight, 0.15]}
-        radius={0.12}
-        smoothness={10}
-      >
-        <meshPhysicalMaterial
-          transparent
-          transmission={1}
-          thickness={0.6}
-          roughness={0.15}
-          metalness={0}
-          ior={1.45}
-          reflectivity={1}
-          clearcoat={1}
-          clearcoatRoughness={0.05}
-          envMapIntensity={2}
-          color="#363941"
-          opacity={0.6}
-          depthWrite={false}
-        />
-      </RoundedBox>
-
-    </>
-  );
-}
-
-
 
 /* -------------------- MAIN CEPHI PAGE -------------------- */
 export default function Cephi() {
@@ -247,11 +246,20 @@ export default function Cephi() {
       
     <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
   <Stars />
+   <Heading />
    
-  <Heading />
   <Description />
-  <GeneralMetrics />
-    <InfoBox position={[0, -1.5, -2]} />
+  <MetricsInfoBoxes
+  position={[0, 0.0, -1]} // below description
+  metrics={[
+    "Total Nodes\n2",
+    "Test Tokens Staked\n500+",
+    "Networks Supported\n1",
+    "Total Volume\n$40",
+  ]}
+/>
+
+
 
 </Canvas>
 
