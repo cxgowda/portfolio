@@ -1,8 +1,12 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { RoundedBox, Text as DreiText } from "@react-three/drei";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef,  useEffect, useState  } from "react";
 import * as THREE from "three";
+import Graph from "./Graph";
+import { ScrollControls, Scroll, useScroll } from "@react-three/drei";
+
+
 
 
 /* -------------------- STAR TEXTURE -------------------- */
@@ -236,37 +240,63 @@ function Heading() {
 }
 
 
+function ScrollContent({ metrics }) {
+  const scroll = useScroll();
+  const group = useRef();
 
-/* -------------------- MAIN CEPHI PAGE -------------------- */
+  useFrame(() => {
+    if (group.current) {
+      group.current.position.y = -scroll.offset * 8;
+    }
+  });
+
+  return (
+    <group ref={group}>
+      {/* PAGE 1 */}
+      <Heading position={[0, 2, 0]} />
+      <Description position={[0, 1, 0]} />
+
+      {/* PAGE 2 */}
+      {metrics.length > 0 && (
+        <MetricsInfoBoxes
+          position={[0, 0, 0]}
+          metrics={metrics}
+        />
+      )}
+
+      {/* PAGE 3 */}
+      {/*<Graph position={[-2, -5, 0]} />          ------- for graph activation*/}
+    </group>
+  );
+}
+
 export default function Cephi() {
+  const [metrics, setMetrics] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      "https://raw.githubusercontent.com/cxgowda/cephi_data/main/project_data.json"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setMetrics(data.metrics);
+      })
+      .catch((err) => {
+        console.error("Error fetching JSON:", err);
+      });
+  }, []);
+
   return (
     <div style={{ width: "100%", height: "100vh", background: "black" }}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+        <Stars />
 
-      
-    <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-  <Stars />
-   <Heading />
-   
-  <Description />
-  <MetricsInfoBoxes
-  position={[0, 0.0, -1]} // below description
-  metrics={[
-    "Total Nodes\n2",
-    "Test Tokens Staked\n500+",
-    "Networks Supported\n1",
-    "Total Volume\n$40",
-  ]}
-/>
-
-
-
-</Canvas>
-
-      
-
-    
-       
-      
+        <ScrollControls pages={3} damping={0.30}>
+          <Scroll>
+            <ScrollContent metrics={metrics} />
+          </Scroll>
+        </ScrollControls>
+      </Canvas>
     </div>
   );
 }
