@@ -1,13 +1,10 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { RoundedBox, Text as DreiText } from "@react-three/drei";
-
-import { useMemo, useRef,  useEffect, useState  } from "react";
+import { useMemo, useRef, useEffect, useState } from "react";
 import * as THREE from "three";
-//import Graph from "./Graph";
-import { ScrollControls, Scroll, useScroll } from "@react-three/drei";
-
-
-
+import Graph from "./Graph";
+import WorldMapGraph from "./WorldMapGraph";
+import { ScrollControls, Scroll, useScroll, Environment } from "@react-three/drei";
 
 /* -------------------- STAR TEXTURE -------------------- */
 function createGlowTexture() {
@@ -15,7 +12,6 @@ function createGlowTexture() {
   const canvas = document.createElement("canvas");
   canvas.width = size;
   canvas.height = size;
-
   const ctx = canvas.getContext("2d");
 
   const gradient = ctx.createRadialGradient(
@@ -38,32 +34,28 @@ function createGlowTexture() {
   return new THREE.CanvasTexture(canvas);
 }
 
-
 /* -------------------- DESCRIPTION -------------------- */
 function Description() {
   const { viewport } = useThree();
 
   const fontSize = Math.max(
-    0.12,                          // minimum mobile size
-    Math.min(viewport.width * 0.05, 0.15) // max desktop size
+    0.12,
+    Math.min(viewport.width * 0.05, 0.15)
   );
 
   return (
     <DreiText
-      position={[
-        0,                        // center horizontally
-        viewport.height / 2 - 1,  // slightly below heading
-        -1
-      ]}
+      position={[0, viewport.height / 2 - 1, -1]}
       fontSize={fontSize}
-      maxWidth={viewport.width * 0.9} // prevent overflowing
+      maxWidth={viewport.width * 0.9}
       lineHeight={1.4}
-      anchorX="center"   // center text horizontally
-      anchorY="top"      // align from top vertically
-      textAlign="center" // center multi-line text
+      anchorX="center"
+      anchorY="top"
+      textAlign="center"
     >
       {`Cephi is a small, experimental Proof-of-Stake blockchain project built independently as a passion project. It runs on a Byzantine Fault Tolerant (BFT) consensus mechanism and was created purely out of curiosity to explore how decentralized networks and validators actually works.
-      \nCephi is not backed by a large team or company.`}
+      
+Cephi is not backed by a large team or company.`}
       <meshStandardMaterial
         color="#374152"
         emissive="#767c83"
@@ -74,19 +66,21 @@ function Description() {
   );
 }
 
-/* -------------------- METRICS INFOBOXES (SHINY GLASS) -------------------- */
+/* -------------------- METRICS BOXES -------------------- */
 function MetricsInfoBoxes({ position = [0, -1.2, -1], metrics = [] }) {
   const { viewport } = useThree();
 
-  const boxWidth = Math.min(viewport.width * 0.50, 2.5);
+  const boxWidth = Math.min(viewport.width * 0.5, 2.5);
   const boxHeight = boxWidth * 0.4;
   const spacing = boxWidth * 0.17;
-
   const isMobile = viewport.width < 5;
 
   return (
     <>
       {metrics.map((metric, i) => {
+        // ✅ Remove dollar symbols from metric text
+        const cleanedMetric = metric.replace(/\$/g, "");
+
         let xPos = 0;
         let yPos = 0;
 
@@ -99,42 +93,41 @@ function MetricsInfoBoxes({ position = [0, -1.2, -1], metrics = [] }) {
         }
 
         return (
-          <group key={i} position={[xPos, position[1] + yPos, position[2]]}>
-            {/* Shiny Glass Panel */}
-            <RoundedBox
-              args={[boxWidth, boxHeight, 0.1]}
-              radius={0.10}
-              smoothness={5}
-            >
+          <group
+            key={i}
+            position={[xPos, position[1] + yPos, position[2]]}
+          >
+            {/* Glass Panel */}
+            <RoundedBox args={[boxWidth, boxHeight, 0.1]} radius={0.1}>
               <meshPhysicalMaterial
                 transparent
-                transmission={1}           // full glass effect
+                transmission={1}
                 thickness={0.5}
-                roughness={0.05}           // smooth → shiny
-                metalness={0.2}            // subtle reflection
-                ior={1.5}                  // index of refraction
-                reflectivity={1.0}         // mirror-like reflection
-                clearcoat={1}              // glossy layer
-                clearcoatRoughness={0.02}  // very smooth
+                roughness={0.05}
+                metalness={0.2}
+                ior={1.5}
+                reflectivity={1}
+                clearcoat={1}
+                clearcoatRoughness={0.02}
                 color="#2a2b2c6e"
                 opacity={0.4}
                 depthWrite={false}
-                envMapIntensity={2}        // reflections from environment
+                envMapIntensity={2}
               />
             </RoundedBox>
 
             {/* Metric Text */}
             <DreiText
               position={[0, 0, 0.06]}
-              fontSize={Math.min(boxHeight * 0.20, 0.20)}
+              fontSize={Math.min(boxHeight * 0.2, 0.2)}
               anchorX="center"
               anchorY="middle"
               textAlign="center"
             >
-              {metric}
+              {cleanedMetric}
               <meshStandardMaterial
                 color="#ffffff"
-                emissive="#7a7e85"        // subtle glow
+                emissive="#7a7e85"
                 emissiveIntensity={0.7}
                 toneMapped={false}
               />
@@ -146,9 +139,35 @@ function MetricsInfoBoxes({ position = [0, -1.2, -1], metrics = [] }) {
   );
 }
 
+/* -------------------- BIG TOTAL VOLUME TEXT -------------------- */
+function TotalVolumeText({ value }) {
+  const { viewport } = useThree();
 
+  const fontSize = Math.max(
+    0.4,
+    Math.min(viewport.width * 0.09, 0.6)
+  );
 
-
+  return (
+    <DreiText
+      position={[0, 0, -1]} // Between description and metrics
+      fontSize={fontSize}
+      anchorX="center"
+      anchorY="middle"
+      textAlign="center"
+      outlineWidth={0.008}     
+      outlineColor="#434547"
+    >
+      {`Network Volume: ${value}`}
+      <meshStandardMaterial
+        color="#434547"
+        emissive="#484a4d"
+        emissiveIntensity={2}
+        toneMapped={false}
+      />
+    </DreiText>
+  );
+}
 
 /* -------------------- STARS -------------------- */
 function Stars() {
@@ -158,13 +177,11 @@ function Stars() {
 
   const positions = useMemo(() => {
     const arr = new Float32Array(starCount * 3);
-
     for (let i = 0; i < starCount; i++) {
       arr[i * 3] = (Math.random() - 0.5) * 300;
       arr[i * 3 + 1] = (Math.random() - 0.5) * 200;
       arr[i * 3 + 2] = -Math.random() * maxDepth;
     }
-
     return arr;
   }, []);
 
@@ -178,9 +195,7 @@ function Stars() {
 
     for (let i = 0; i < starCount; i++) {
       let zIndex = i * 3 + 2;
-
       positionsArray[zIndex] += 0.15;
-
       if (positionsArray[zIndex] > 5) {
         positionsArray[zIndex] = -maxDepth;
       }
@@ -199,7 +214,6 @@ function Stars() {
           itemSize={3}
         />
       </bufferGeometry>
-
       <pointsMaterial
         map={texture}
         size={1.5}
@@ -211,21 +225,21 @@ function Stars() {
   );
 }
 
-
+/* -------------------- HEADING -------------------- */
 function Heading() {
   const { viewport } = useThree();
 
   const fontSize = Math.max(
-    0.30,                         // minimum size (mobile)
-    Math.min(viewport.width * 0.06, 0.25) // max size (desktop)
+    0.3,
+    Math.min(viewport.width * 0.06, 0.25)
   );
 
   return (
     <DreiText
-      position={[0, viewport.height / 2 - 0.2, -1]} // x=0 (center), y slightly down from top
+      position={[0, viewport.height / 2 - 0.2, -1]}
       fontSize={fontSize}
-      anchorX="center"  // center horizontally
-      anchorY="top"     // stay at top vertically
+      anchorX="center"
+      anchorY="top"
       letterSpacing={0.1}
     >
       CEPHI
@@ -239,8 +253,8 @@ function Heading() {
   );
 }
 
-
-function ScrollContent({ metrics }) {
+/* -------------------- SCROLL CONTENT -------------------- */
+function ScrollContent({ metrics, totalVolume }) {
   const scroll = useScroll();
   const group = useRef();
 
@@ -253,25 +267,34 @@ function ScrollContent({ metrics }) {
   return (
     <group ref={group}>
       {/* PAGE 1 */}
-      <Heading position={[0, 2, 0]} />
-      <Description position={[0, 1, 0]} />
+      <Heading />
+      <Description />
 
-      {/* PAGE 2 */}
+      {/* PAGE 2 — Network Volume */}
+      {totalVolume && <TotalVolumeText value={totalVolume} />}
+
+      {/* PAGE 3 — Metrics */}
       {metrics.length > 0 && (
         <MetricsInfoBoxes
-          position={[0, 0, 0]}
+          position={[0, -1.5, 0]} // shifted down below volume
           metrics={metrics}
         />
       )}
 
-      {/* PAGE 3 */}
-      {/*<Graph position={[-2, -5, 0]} />          ------- for graph activation*/}
+      {/* PAGE 4 — Graph */}
+      <WorldMapGraph position={[0, -7, 0]} />
+      <Graph position={[0, -11, 0]} />
+      
+
     </group>
+    
   );
 }
 
+/* -------------------- MAIN COMPONENT -------------------- */
 export default function Cephi() {
   const [metrics, setMetrics] = useState([]);
+  const [totalVolume, setTotalVolume] = useState("");
 
   useEffect(() => {
     fetch(
@@ -280,6 +303,19 @@ export default function Cephi() {
       .then((res) => res.json())
       .then((data) => {
         setMetrics(data.metrics);
+
+        const volumeItem = data.metrics.find((item) =>
+          item.startsWith("Total Volume")
+        );
+
+        if (volumeItem) {
+          let value = volumeItem.split("\n")[1] || "";
+
+          // Remove all non-numeric except dot
+          value = value.replace(/[^0-9.]/g, "");
+
+          setTotalVolume(value);
+        }
       })
       .catch((err) => {
         console.error("Error fetching JSON:", err);
@@ -289,11 +325,21 @@ export default function Cephi() {
   return (
     <div style={{ width: "100%", height: "100vh", background: "black" }}>
       <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+        <color attach="background" args={["#050505"]} />
         <Stars />
 
-        <ScrollControls pages={3} damping={0.30}>
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[5, 5, 5]} intensity={1.5} />
+        <pointLight position={[-5, -5, 5]} intensity={2} />
+
+        <Environment preset="studio" />
+
+        <ScrollControls pages={4} damping={0.3}>
           <Scroll>
-            <ScrollContent metrics={metrics} />
+            <ScrollContent
+              metrics={metrics}
+              totalVolume={totalVolume}
+            />
           </Scroll>
         </ScrollControls>
       </Canvas>
